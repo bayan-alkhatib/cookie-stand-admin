@@ -46,8 +46,8 @@ export default function Home() {
       <main className="">
         <form className="border rounded-md border-green-300 flex-col w-2/3 bg-green-300 mx-auto my-8" onSubmit={questionHandler}>
           <h1 className="text-center font-semibold text-black-100 text-2xl p-3 ">Create Cookie Stand</h1>
-          <div className="flex ">
-            <label for='location'>Location</label>
+          <div className="flex">
+            <label  className="" for='location'>Location</label>
             <input name="location" className="flex-auto p-2"/>
           </div>
           <div className="flex ">
