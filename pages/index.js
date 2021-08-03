@@ -1,28 +1,70 @@
 import Head from 'next/head'
-import Link from 'next/link'
+
 
 import { useState } from 'react';
 
+import Header from '../components/header.js';
+import CreateForm from '../components/createform.js';
+import ReportTable from '../components/reportTable.js';
+import Footer from '../components/footer.js'
 
 
-export default function Home() {
+export default function CookieStandAdmin() {
 
-  const [store, setStore] = useState([]);
+  const[report, setallstores] = useState([])
 
-  function storehandeler(event){
+  const[workingHours,setworkingHours]=useState(['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'])
+  const[totals,setbranchestotals]=useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+
+
+  function onCreate(event){
 
     event.preventDefault();
 
-    let store= {
+    let minCus_h=parseInt(event.target.MinCPH.value)
+    let maxCus_h=parseInt(event.target.MaxCPH.value)
+    let avgCookies_c=parseInt(event.target.avgCPH.value)
+    
+    let sum=0
+   
+    
+    const store= {
       location: event.target.location.value,
-      minCus:event.target.MinCPH.value,
-      maxCus:event.target.MaxCPH.value,
-      avgCookies:event.target.avgCPH.value
+      hourlySales:workingHours.map(()=>Math.ceil(avgCookies_c*(Math.ceil(Math.random()*(maxCus_h-minCus_h)+minCus_h)))),
     }
 
-    setStore(store); 
+  for (let i=0; i< store.hourlySales.length; i++){
+    sum=sum+store.hourlySales[i]
+    store.total=sum
   }
+ 
+  setallstores([...report,store])
+  
+  // let totalArray=[]
+  // for(let j=0; j<workingHours.length;j++){
+  //   let total_sum=0
+  //   for(let x=0; x<report.length; x++){
+  //     total_sum+=report[x].hourlySales[j]
+  //   }
+  //   totalArray.push(total_sum)
+  //  }
 
+   // let sumOfTotal = 0
+  // totalArray.forEach(element => {
+  //   sumOfTotal+=element;
+  // });
+
+  // totalArray.push(sumOfTotal)
+
+  total_sum=report.map((item,idx)=>{
+     return item + report.hourlySales[idx]
+  })
+   
+ setbranchestotals([...totals,total_sum])
+
+}
+
+  
   return (
     <div className="bg-green-50">
       <Head>
@@ -30,49 +72,40 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-      <header className="flex justify-between bg-green-500 text-black-100 p-4 items-center">
-        <h1 className="text-4xl">Cookie Stand Admin</h1>
-      </header>
+      {/* Header Compnent */}
+      <Header />
 
       <main className="">
+        {/* <h2> report{report[0].hourlySales}</h2> */}
+          {/* Form Function */}
+          < CreateForm onCreate={onCreate}  />
+        
+          {/* Report Table */}
+          <ReportTable report={report} workingHours={workingHours}  totals={totals}/>
 
-        <form className="border rounded-md border-green-300 flex-col w-2/3 bg-green-300 mx-auto my-8" onSubmit={storehandeler}>
-          
-          <h1 className="text-center font-semibold text-black-100 text-2xl p-3 ">Create Cookie Stand</h1>
+          {/* Footer Component */}
+          <Footer report={report}/>
 
-          <div className="flex mx-3 my-4">
-            <label  className="mr-2" for='location'>Location</label>
-            <input name="location" className="flex-auto bg-gray-100 "/>
-          </div>
-
-          <div className="flex justify-center mx-3 my-4 mt-8">
-            <div classNameame="flex-col ">
-              <label for="MinCPH" >Minimum Customers per Hour</label>
-              <input name="MinCPH" />
-            </div>
-            <div className="flex-col">
-              <label for='MaxCPH'>Maximum Customers per Hour</label>
-              <input name="MaxCPH" />
-            </div>
-            <div className="flex-col ">
-              <label for='avgCPH'>Average Cookies per Sale</label>
-              <input name="avgCPH"/>
-            </div>
-            <button className=" bg-green-500 w-1/4">Create</button>
-          </div>
-      
-        </form>
-
-        <div className="mx-auto my-8 text-black-100 text-center"> Report Table Coming Soon ... </div>
-
-        <section className="mx-auto my-8 text-black-100 text-center">
-         {JSON.stringify(store)}
-        </section>
       </main>
-    
-      <footer className="flex justify-between bg-green-500 text-black-100 p-4 items-center">
-         <div> &copy;2021</div>
-      </footer>
     </div>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
