@@ -11,9 +11,8 @@ import Footer from '../components/footer.js'
 
 export default function CookieStandAdmin() {
 
-  const[report, setallstores] = useState([])
-
   const[workingHours,setworkingHours]=useState(['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'])
+  const[report, setallstores] = useState([])
   const[totals,setbranchestotals]=useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
 
 
@@ -33,34 +32,22 @@ export default function CookieStandAdmin() {
       hourlySales:workingHours.map(()=>Math.ceil(avgCookies_c*(Math.ceil(Math.random()*(maxCus_h-minCus_h)+minCus_h)))),
     }
 
-  for (let i=0; i< store.hourlySales.length; i++){
-    sum=sum+store.hourlySales[i]
+    for (let i=0; i< store.hourlySales.length; i++){
+      sum=sum+store.hourlySales[i]
+    }
     store.total=sum
-  }
- 
-  setallstores([...report,store])
+    
+   setallstores([...report,store])
   
-  // let totalArray=[]
-  // for(let j=0; j<workingHours.length;j++){
-  //   let total_sum=0
-  //   for(let x=0; x<report.length; x++){
-  //     total_sum+=report[x].hourlySales[j]
-  //   }
-  //   totalArray.push(total_sum)
-  //  }
 
-   // let sumOfTotal = 0
-  // totalArray.forEach(element => {
-  //   sumOfTotal+=element;
-  // });
-
-  // totalArray.push(sumOfTotal)
-
-  total_sum=report.map((item,idx)=>{
-     return item + report.hourlySales[idx]
+  let total_sum=totals.map((item,idx)=>{
+    if (idx===totals.length-1){
+        return item + store.total
+    }
+     return item + store.hourlySales[idx]
   })
    
- setbranchestotals([...totals,total_sum])
+ setbranchestotals(total_sum)
 
 }
 
