@@ -1,5 +1,4 @@
 export default function ReportTable(props){
-
     if (props.report.length === 0){
       return (
         <h2 className="mx-auto my-8 text-xl text-center font-semibold">No Cookie Stands Available</h2>
@@ -23,33 +22,30 @@ export default function ReportTable(props){
           <tbody>
           {
             props.report.map((store,idx)=>{
+              
+              const element =
+              <>
+                <td className='border border-black px-2' >{store.location}</td>
+                {
+                  store.hourlySales.map(item=>{
+                    return(
+                      <td className='border border-black'> {item} </td>
+                    )
+                  })
+                }
+                <td className='border border-black'>{store.total}</td>
+              </>
 
               if (idx%2==0){
                 return(
                   <tr className='bg-green-400'>
-                    <td className='border border-black px-2' >{store.location}</td>
-                    {
-                      store.hourlySales.map(item=>{
-                        return(
-                          <td className='border border-black'> {item} </td>
-                        )
-                      })
-                    }
-                    <td className='border border-black'>{store.total}</td>
+                    {element}
                   </tr>
                 )
               }else{
                 return(
                   <tr className='bg-green-300'>
-                    <td className='border border-black px-2' >{store.location}</td>
-                    {
-                      store.hourlySales.map(item=>{
-                        return(
-                          <td className='border border-black'> {item} </td>
-                        )
-                      })
-                    }
-                    <td className='border border-black'>{store.total}</td>
+                    {element}
                   </tr>
                 ) 
               }
