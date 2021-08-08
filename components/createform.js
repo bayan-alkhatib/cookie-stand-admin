@@ -1,30 +1,30 @@
 export default function CreateForm(props){
     return(
-      <form className="border rounded-md border-green-300 flex-col w-5/6 bg-green-300 mx-auto my-8" onSubmit={props.onCreate}>
-                
-        <h1 className="text-center font-semibold text-2xl p-3 ">Create Cookie Stand</h1>
+      <form className="flex-col w-5/6 mx-auto my-8 bg-green-300 border border-green-500 rounded-md" onSubmit={props.onCreate}>       
   
         <div className="flex mx-3 my-4">
-          <label  className="mr-2 font-semibold" for='location'>Location</label>
-          <input name="location" className="flex-auto "/>
+          <div className= 'flex-col w-2/3 mr-8 text-center '>
+            <label  className="font-semibold "  htmlFor='location' >ADD Location</label>
+            <input name="location" className="flex-auto w-full mt-2" placeholder=' Cookie Stand Location'/>
+          </div>
+          <button className="w-1/3 my-1 font-semibold bg-green-500 rounded">CREATE STAND</button>
         </div>
   
-        <div className="flex justify-evenly w-7/8 mx-3 my-4 mt-8">
-          <div className="flex-col rounded bg-green-100 w-1/4 mr-2 text-sm font-semibold text-center p-1">
-            <label for="MinCPH" >Minimum Customers per Hour</label>
-            <input name="MinCPH" className="flex-auto " />
+        <div className="flex mx-3 my-4 mt-8 justify-evenly w-7/8">
+          <div className="flex-col w-1/3 p-1 mr-5 text-sm font-semibold text-center ">
+            <label htmlFor="MinCPH" >MINUIMUM CUSTOMERS PER HOUR</label>
+            <input name="MinCPH" className="flex-auto w-full py-1 mt-2"  placeholder='0'/>
           </div>
-          <div className="flex-col rounded bg-green-100 w-1/4 mr-2 text-sm font-semibold text-center p-1">
-            <label for='MaxCPH'>Maximum Customers per Hour</label>
-            <input name="MaxCPH" className="flex-auto "/>
+          <div className="flex-col w-1/3 p-1 mr-5 text-sm font-semibold text-center ">
+            <label htmlFor='MaxCPH'>MAXIMUM CUSTOMERS PER HOUR</label>
+            <input name="MaxCPH" className="flex-auto w-full py-1 mt-2"  placeholder='0'/>
           </div>
-          <div className="flex-col rounded bg-green-100 w-1/4 mr-2 text-sm font-semibold text-center p-1">
-            <label for='avgCPH'>Average Cookies per Sale</label>
-            <input name="avgCPH" className="flex-auto "/>
+          <div className="flex-col w-1/3 p-1 mr-5 text-sm font-semibold text-center ">
+            <label htmlFor='avgCPH'>AVERAGE COOKIE PER SALE</label>
+            <input name="avgCPH" className="flex-auto w-full py-1 mt-2" placeholder='0'/>
           </div>
-          <button className=" rounded bg-green-500 w-1/4 font-semibold ">Create</button>
         </div>
-  
+        
       </form>
     )
   }

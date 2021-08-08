@@ -1,18 +1,22 @@
+import { TrashIcon } from '@heroicons/react/solid'
+
 export default function ReportTable(props){
+
+  
     if (props.report.length === 0){
       return (
-        <h2 className="mx-auto my-8 text-xl text-center font-semibold">No Cookie Stands Available</h2>
+        <h2 className="mx-auto my-8 text-xl font-semibold text-center">No Cookie Stands Available</h2>
       )
     }else{
       return(
-        <table className='border rounded-md border-green-300 w-5/6 mx-auto mt-4 text-center'>
+        <table className='w-5/6 mx-auto mt-4 text-center border border-green-300 rounded-md'>
 
-          <thead className='border border-green-300 bg-green-500'>
-            <th className='px-2'>Location</th>
+          <thead className='bg-green-500'>
+            <th className='px-2'>Location </th>
             {
               props.workingHours.map(item=>{
                 return(
-                  <th>{item} </th>
+                  <th className='border border-green-300 '>{item} </th>
                 )
               })
               }
@@ -23,22 +27,29 @@ export default function ReportTable(props){
           {
             props.report.map((store,idx)=>{
               
-              const element =
+              const element =(
               <>
-                <td className='border border-black px-2' >{store.location}</td>
+                <td className='flex items-center justify-between px-6 border border-green-400' >
+                  <div> {store.location} </div>
+                  <form onSubmit= {props.deleteIcon}>
+                    <input type="hidden" name='id' value={store.id} />
+                    <button className='w-5 h-5'>< TrashIcon className="w-full ml-2 text-red-400 "/></button>
+                  </form>
+                 </td>
                 {
                   store.hourlySales.map(item=>{
                     return(
-                      <td className='border border-black'> {item} </td>
+                      <td className='border border-collapse border-green-400'> {item} </td>
                     )
                   })
                 }
-                <td className='border border-black'>{store.total}</td>
+                <td className='border border-green-400'>{store.total}</td>
               </>
+              )
 
               if (idx%2==0){
                 return(
-                  <tr className='bg-green-400'>
+                  <tr className='bg-green-200'>
                     {element}
                   </tr>
                 )
@@ -54,11 +65,11 @@ export default function ReportTable(props){
           </tbody>
 
           <tfoot className='bg-green-500'>
-              <td className='border border-black font-semibold px-2'>Totals</td>
+              <td className='px-2 font-semibold border border-green-400'>Totals</td>
               {
               props.totals.map(item=>{
                 return(
-                  <td className='border border-black font-semibold'>{item}</td>
+                  <td className='border border-green-400'>{item}</td>
                 )
               })
               } 
